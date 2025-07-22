@@ -3,6 +3,7 @@ import TrackButton from '../miniComponents/TrackButton';
 import WhyChooseUs from './ WhyChooseUs';
 import { useNavigate } from 'react-router-dom';
 import Footer from './footer';
+// import Footer from './footer';
 
 // import Footer from './footer';
 
