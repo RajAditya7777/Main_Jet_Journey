@@ -19,7 +19,7 @@ export default function Navbar() {
         <img src="/plane-logo.svg" alt="JetJourney Logo" className="w-8 h-8" />
         JetJourney
       </div>
-      {/* Hamburger for mobile */}
+      
       <button
         className="sm:hidden block text-3xl focus:outline-none"
         onClick={() => setMenuOpen(!menuOpen)}
@@ -27,7 +27,7 @@ export default function Navbar() {
       >
         <span>{menuOpen ? "✕" : "☰"}</span>
       </button>
-      {/* Nav links */}
+      
       <div
         className={`${
           menuOpen ? 'flex' : 'hidden'
@@ -67,7 +67,7 @@ export default function Navbar() {
           Contact
         </NavLink>
       </div>
-      {/* Auth buttons */}
+      
       <div className="flex space-x-2 mt-4 sm:mt-0">
         <SignedOut>
           <SignInButton className="cursor-pointer" />
