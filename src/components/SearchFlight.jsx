@@ -12,7 +12,7 @@ import {
   RefreshCcw,
 } from 'lucide-react';
 
-const API_KEY = 'cd8b99100115ff3ca5cd4df948dd1432';
+const API_KEY = '3f18fbf6148c1d39d06e4cb90944f96c';
 
 const SearchFlight = ({ setTab }) => {
   const [flights, setFlights] = useState([]);
