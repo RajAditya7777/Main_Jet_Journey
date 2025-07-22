@@ -2,8 +2,9 @@ import React from 'react'
 import TrackButton from '../miniComponents/TrackButton';
 import WhyChooseUs from './ WhyChooseUs';
 import { useNavigate } from 'react-router-dom';
-
 import Footer from './footer';
+
+// import Footer from './footer';
 
 export default function HeroSection() {
 
@@ -26,7 +27,7 @@ export default function HeroSection() {
       </div>
     </section>
       <WhyChooseUs />
-      <Footer />
+    <Footer/>
     </>
   );
 }

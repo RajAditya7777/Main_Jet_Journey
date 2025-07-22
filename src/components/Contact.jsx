@@ -1,9 +1,10 @@
 import React from 'react';
 // import SendButton from '../miniComponents/sendbutton';
 import { MapPin, Phone, Mail} from "lucide-react";
-import Footer from './footer';
+// import Footer from './footer';
 import ContactForm from './InternalComponents/messageBox';
 import FAQs from './InternalComponents/faqsBox';
+import Footer from './footer';
 
 
 export default function Contact() {
