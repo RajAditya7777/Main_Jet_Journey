@@ -1,6 +1,6 @@
 import React from "react";
 import { FaClock, FaPlane, FaMapMarkerAlt, FaMobileAlt, FaShieldAlt, FaHeadphones } from "react-icons/fa";
-import Footer from './footer';
+
 
 const features = [
     {
