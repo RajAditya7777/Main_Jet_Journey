@@ -5,7 +5,7 @@ const footer = () => {
   return (
     <footer className="bg-[#0047AB] text-white mb-0 pt-16 pb-8 px-6">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
-        {/* Column 1 */}
+        
         <div>
           <div className="flex items-center gap-2 mb-4">
             
@@ -20,7 +20,7 @@ const footer = () => {
           </div>
         </div>
 
-        {/* Column 2 */}
+        
         <div>
           <h3 className="font-semibold text-lg mb-4">Quick Links</h3>
           <ul className="space-y-2 text-[#BAE2FF] text-sm">
@@ -31,7 +31,7 @@ const footer = () => {
           </ul>
         </div>
 
-        {/* Column 3 */}
+        
         <div>
           <h3 className="font-semibold text-lg mb-4">Featured Airlines</h3>
           <ul className="space-y-2 text-[#BAE2FF] text-sm">
@@ -45,7 +45,7 @@ const footer = () => {
           </ul>
         </div>
 
-        {/* Column 4 */}
+        
         <div>
           <h3 className="font-semibold text-lg mb-4">Contact Us</h3>
           <ul className="space-y-4 text-[#BAE2FF] text-sm">
@@ -64,7 +64,7 @@ const footer = () => {
         </div>
       </div>
 
-      {/* Bottom note */}
+      
       <div className="border-t border-blue-500 mt-12 pt-6 text-center text-[#BAE2FF] text-sm">
         © 2025 JetJourney. All rights reserved.
       </div>

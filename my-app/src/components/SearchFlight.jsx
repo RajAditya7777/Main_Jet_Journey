@@ -64,7 +64,7 @@ const SearchFlight = ({ setTab }) => {
   return (
     <div className="bg-[#f9fbfd] min-h-screen">
 
-      {/* Blue background now full width */}
+      
       <div className="bg-[#0047AB] w-full pb-0.5">
         <div className="max-w-full mx-auto px-4 sm:px-8 md:px-16 lg:px-40">
           <div className="text-center mb-10">
@@ -112,10 +112,10 @@ const SearchFlight = ({ setTab }) => {
         </div>
       </div>
 
-      {/* Filters + Results */}
+      
       <div className="max-w-full mx-auto px-4 sm:px-8 md:px-16 lg:px-40 mt-5">
         <div className="flex flex-col lg:flex-row gap-6">
-          {/* Filters */}
+          {/* Filters down here */}
           <div className="w-full lg:max-w-xs bg-white rounded-2xl shadow-lg p-4 flex flex-col mb-4 h-90 overflow-auto">
             <h2 className="text-xl font-bold text-gray-800 mb-4">Filters</h2>
             <div className="mb-4">
@@ -158,7 +158,7 @@ const SearchFlight = ({ setTab }) => {
             </button>
           </div>
 
-          {/* Results */}
+          
           <div className="flex-1 space-y-4">
             <p className="text-gray-500 text-sm">{filteredFlights.length} flights found</p>
             {filteredFlights.map((flight, idx) => {

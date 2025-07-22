@@ -67,7 +67,7 @@ export default function About() {
         </p>
       </div>
 
-      {/* Mission Section */}
+      {/*Mission*/}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 px-4 sm:px-8 md:px-16 py-10 items-center bg-[#F9FAFB] max-w-7xl mx-auto">
         <div className="flex justify-center">
           <img src="/map.png" alt="World map with airplane" className="rounded-lg w-full max-w-xs sm:max-w-md md:max-w-lg lg:max-w-2xl object-cover transition-transform duration-300 hover:scale-105 mx-auto" />
@@ -96,7 +96,7 @@ export default function About() {
         </div>
       </div>
 
-      {/* Impact Section */}
+      {/*Impact*/}
       <div className="text-center py-16 bg-[#F9FAFB]">
         <h2 className="text-3xl font-bold mb-4">Our Impact</h2>
         <p className="text-gray-600 mb-10 max-w-2xl mx-auto">
@@ -112,7 +112,7 @@ export default function About() {
         </div>
       </div>
 
-      {/* Vision Section */}
+      {/*Vision*/}
       <div className="text-center py-16 px-6 bg-[#F9FAFB]">
         <h2 className="text-3xl font-bold mb-4">Our Vision for the Future</h2>
         <p className="text-gray-600 mb-10 max-w-3xl mx-auto">
@@ -130,7 +130,7 @@ export default function About() {
         </div>
       </div>
 
-      {/* Team Section */}
+      {/* members and all that */}
       <div className="text-center py-16 px-6 bg-[#F9FAFB]">
         <h2 className="text-3xl font-bold mb-4">Meet Our Team</h2>
         <p className="text-gray-600 mb-12 max-w-2xl mx-auto">

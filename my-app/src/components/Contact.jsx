@@ -19,7 +19,7 @@ export default function Contact() {
       <div className="bg-gray-50 px-4 sm:px-8 md:px-16 py-10 sm:py-20">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-8 mb-10">
 
-          {/* Contact Info Section starts from here  */}
+          {/* Contact */}
           <div className="md:w-1/2 space-y-8 mb-8 md:mb-0">
             <h2 className="text-xl sm:text-2xl font-bold text-gray-900">Get In Touch</h2>
 
