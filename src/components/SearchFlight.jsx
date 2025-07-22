@@ -12,7 +12,7 @@ import {
   RefreshCcw,
 } from 'lucide-react';
 
-const API_KEY = '3f18fbf6148c1d39d06e4cb90944f96c';
+const API_KEY = import.meta.env.VITE_FLIGHT_API_KEY;
 
 const SearchFlight = ({ setTab }) => {
   const [flights, setFlights] = useState([]);
