@@ -1,9 +1,8 @@
 import React from 'react';
 
 import {Shield,Star,Users,TrendingUp} from "lucide-react";
-// import Footer from './footer';
+import Footer from './Footer';
 
-// import Footer from './footer';
 
 const impact = [
   { number: "10M+", label: "Flights Tracked" },
@@ -150,7 +149,7 @@ export default function About() {
           ))}
         </div>
       </div>
-      {/* <Footer /> */}
+      <Footer/>
     </section>
   );
 }
