@@ -1,7 +1,7 @@
 import React from 'react';
 // import SendButton from '../miniComponents/sendbutton';
-import { MapPin, Phone, Mail} from "lucide-react";
-import Footer from './footer';
+import { MapPin, Phone, Mail } from "lucide-react";
+import Footer from './Footer';
 import ContactForm from './InternalComponents/messageBox';
 import FAQs from './InternalComponents/faqsBox';
 
@@ -9,9 +9,10 @@ import FAQs from './InternalComponents/faqsBox';
 export default function Contact() {
   return (
     <section>
-      <div className='bg-[#0047AB] text-white py-10 sm:py-16 px-4 sm:px-8 md:px-16 text-center'>
-        <h1 className="text-3xl sm:text-5xl font-bold mb-4">Contact Us</h1>
-        <p className="text-base sm:text-lg max-w-2xl font-light mx-auto">
+      <div className='bg-gradient-to-r from-blue-900 to-slate-900 text-white py-16 sm:py-20 px-4 sm:px-8 md:px-16 text-center relative overflow-hidden rounded-b-[3rem] shadow-xl'>
+        <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-10"></div>
+        <h1 className="text-4xl sm:text-6xl font-bold mb-6 relative z-10">Contact Us</h1>
+        <p className="text-blue-100 text-lg sm:text-xl max-w-2xl font-light mx-auto relative z-10">
           Have questions or feedback? We'd love to hear from you!
         </p>
       </div>
@@ -26,7 +27,7 @@ export default function Contact() {
             <div>
               <div className="flex items-start gap-3 mb-2 text-blue-600">
                 <span>
-                  <MapPin/>
+                  <MapPin />
                 </span>
                 <h3 className="font-semibold text-gray-900 text-base sm:text-lg">Our Office</h3>
               </div>
@@ -57,7 +58,7 @@ export default function Contact() {
               <p className="text-gray-600">support@jetjourney.com</p>
             </div>
 
-            
+
           </div>
 
 

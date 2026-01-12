@@ -1,87 +1,31 @@
 import React from "react";
+import { motion } from "framer-motion";
+import { Plane } from "lucide-react";
 
-const FlyButton = ({onClick}) => {
+const TrackButton = ({ onClick }) => {
   return (
-    <>
-      <style>
-        {`
-        /* From Uiverse.io by adamgiebl */ 
-        .fly-button {
-          font-family: inherit;
-          font-size: 20px;
-          background: #0072FF;
-          color: white;
-          padding: 0.7em 1em;
-          padding-left: 0.9em;
-          display: flex;
-          align-items: center;
-          border: none;
-          border-radius: 16px;
-          overflow: hidden;
-          transition: all 0.2s;
-          cursor: pointer;
-        }
+    <motion.button
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      onClick={onClick}
+      className="group relative inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-blue-600 text-white text-lg font-semibold rounded-full overflow-hidden transition-all duration-300 hover:bg-blue-700 hover:shadow-[0_0_20px_rgba(37,99,235,0.5)]"
+    >
+      <span className="relative z-10">Track Flight</span>
+      <motion.div
+        className="relative z-10"
+        animate={{ x: [0, 5, 0] }}
+        transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+      >
+        <Plane className="w-5 h-5 fill-current" />
+      </motion.div>
 
-        .fly-button span {
-          display: block;
-          margin-left: 0.3em;
-          transition: all 0.3s ease-in-out;
-        }
+      {/* Glow effect */}
+      <div className="absolute inset-0 rounded-full ring-2 ring-white/20 group-hover:ring-white/40 transition-all duration-300" />
 
-        .fly-button svg {
-          display: block;
-          transform-origin: center center;
-          transition: transform 0.3s ease-in-out;
-        }
-
-        .fly-button:hover .svg-wrapper {
-          animation: fly-1 0.6s ease-in-out infinite alternate;
-        }
-
-        .fly-button:hover svg {
-          transform: translateX(2.4em) rotate(45deg) scale(1.1);
-        }
-
-        .fly-button:hover span {
-          transform: translateX(8em);
-        }
-
-        .fly-button:active {
-          transform: scale(0.9);
-        }
-
-        @keyframes fly-1 {
-          from {
-            transform: translateY(0.1em);
-          }
-          to {
-            transform: translateY(-0.1em);
-          }
-        }
-      `}
-      </style>
-
-      <button onClick={onClick} className="fly-button">
-        <div className="svg-wrapper-1">
-          <div className="svg-wrapper">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              width="24"
-              height="24"
-            >
-              <path fill="none" d="M0 0h24v24H0z"></path>
-              <path
-                fill="currentColor"
-                d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z"
-              ></path>
-            </svg>
-          </div>
-        </div>
-        <span>Track Flight</span>
-      </button>
-    </>
+      {/* Shine effect */}
+      <div className="absolute top-0 -left-full w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12 group-hover:animate-shine" />
+    </motion.button>
   );
 };
 
-export default FlyButton;
+export default TrackButton;

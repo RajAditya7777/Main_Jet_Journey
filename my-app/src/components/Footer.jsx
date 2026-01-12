@@ -1,75 +1,100 @@
-import {FaMapMarkerAlt, FaPhoneAlt, FaEnvelope } from 'react-icons/fa';
+import React from 'react';
+import { FaMapMarkerAlt, FaPhoneAlt, FaEnvelope, FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
-const footer = () => {
+const Footer = () => {
   return (
-    <footer className="bg-[#0047AB] text-white mb-0 pt-16 pb-8 px-6">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
-        
-        <div>
-          <div className="flex items-center gap-2 mb-4">
-            
-            <img src="/plane-logo.svg" alt="JetJourney Logo" className="w-8 h-8" />
-            <span className="text-white font-bold text-xl">JetJourney</span>
+    <footer className="bg-gray-900 text-white pt-20 pb-10 px-6 border-t border-gray-800">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+
+        {/* Brand Section */}
+        <div className="space-y-6">
+          <div className="flex items-center gap-3">
+            <div className="bg-blue-600 p-2 rounded-lg">
+              <img src="/plane-logo.svg" alt="JetJourney Logo" className="w-6 h-6 invert brightness-0" />
+            </div>
+            <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-400">JetJourney</span>
           </div>
-          <p className="text-sm text-[#BAE2FF]">
-            Track your flights in real-time with JetJourney's premium flight status tracking service.
+          <p className="text-gray-400 text-sm leading-relaxed">
+            Experience the future of flight tracking. Real-time accuracy, comprehensive data, and a seamless journey from takeoff to landing.
           </p>
-          <div className="flex gap-3 mt-6">
-        
+          <div className="flex gap-4">
+            {[FaFacebook, FaTwitter, FaInstagram, FaLinkedin].map((Icon, i) => (
+              <a key={i} href="#" className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-blue-600 hover:text-white transition-all duration-300">
+                <Icon size={18} />
+              </a>
+            ))}
           </div>
         </div>
 
-        
+        {/* Quick Links */}
         <div>
-          <h3 className="font-semibold text-lg mb-4">Quick Links</h3>
-          <ul className="space-y-2 text-[#BAE2FF] text-sm">
-            <li><Link to="/" className="hover:text-white">Home</Link></li>
-            <li><Link to="/flight-search" className="hover:text-white">Flight Search</Link></li>
-            <li><Link to="/about" className="hover:text-white">About Us</Link></li>
-            <li><Link to="/contact" className="hover:text-white">Contact</Link></li>
+          <h3 className="font-bold text-lg mb-6 text-white">Quick Links</h3>
+          <ul className="space-y-4">
+            {[
+              { name: 'Home', path: '/' },
+              { name: 'Flight Tracker', path: '/flight-search' },
+              { name: 'About Us', path: '/about' },
+              { name: 'Contact', path: '/contact' }
+            ].map((link) => (
+              <li key={link.name}>
+                <Link to={link.path} className="text-gray-400 hover:text-blue-400 transition-colors text-sm font-medium flex items-center gap-2 group">
+                  <span className="w-1 h-1 bg-blue-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
+                  {link.name}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
 
-        
+        {/* Airlines */}
         <div>
-          <h3 className="font-semibold text-lg mb-4">Featured Airlines</h3>
-          <ul className="space-y-2 text-[#BAE2FF] text-sm">
-            <li>Delta Air Lines</li>
-            <li>American Airlines</li>
-            <li>United Airlines</li>
-            <li>Southwest Airlines</li>
-            <li>British Airways</li>
-            <li>Air France</li>
-            <li>Lufthansa</li>
+          <h3 className="font-bold text-lg mb-6 text-white">Popular Airlines</h3>
+          <ul className="space-y-4 text-gray-400 text-sm">
+            {['Delta Air Lines', 'American Airlines', 'United Airlines', 'British Airways', 'Lufthansa'].map((airline, i) => (
+              <li key={i} className="hover:text-blue-300 transition-colors cursor-pointer">{airline}</li>
+            ))}
           </ul>
         </div>
 
-        
+        {/* Contact Info */}
         <div>
-          <h3 className="font-semibold text-lg mb-4">Contact Us</h3>
-          <ul className="space-y-4 text-[#BAE2FF] text-sm">
-            <li className="flex items-start gap-3">
-              <FaMapMarkerAlt className="text-blue-300 mt-1" />
-              Sky Tower, 123 Flight Street<br />
-              New York, NY 10001
+          <h3 className="font-bold text-lg mb-6 text-white">Contact Us</h3>
+          <ul className="space-y-6 text-gray-400 text-sm">
+            <li className="flex items-start gap-4">
+              <div className="mt-1 w-8 h-8 rounded-full bg-gray-800 flex flex-shrink-0 items-center justify-center text-blue-400">
+                <FaMapMarkerAlt size={14} />
+              </div>
+              <span className="leading-relaxed">Sky Tower, 123 Flight Street<br />New York, NY 10001</span>
             </li>
-            <li className="flex items-center gap-3">
-              <FaPhoneAlt className="text-blue-300" /> (555) 123-4567
+            <li className="flex items-center gap-4">
+              <div className="w-8 h-8 rounded-full bg-gray-800 flex flex-shrink-0 items-center justify-center text-blue-400">
+                <FaPhoneAlt size={14} />
+              </div>
+              <span>(555) 123-4567</span>
             </li>
-            <li className="flex items-center gap-3">
-              <FaEnvelope className="text-blue-300" /> info@jetjourney.com
+            <li className="flex items-center gap-4">
+              <div className="w-8 h-8 rounded-full bg-gray-800 flex flex-shrink-0 items-center justify-center text-blue-400">
+                <FaEnvelope size={14} />
+              </div>
+              <span>info@jetjourney.com</span>
             </li>
           </ul>
         </div>
       </div>
 
-      
-      <div className="border-t border-blue-500 mt-12 pt-6 text-center text-[#BAE2FF] text-sm">
-        © 2025 JetJourney. All rights reserved.
+      {/* Bottom Bar */}
+      <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-500">
+        <p>© 2025 JetJourney. All rights reserved.</p>
+        <div className="flex gap-8">
+          <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
+          <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
+          <a href="#" className="hover:text-white transition-colors">Cookie Policy</a>
+        </div>
       </div>
     </footer>
   );
 };
 
-export default footer;
+export default Footer;

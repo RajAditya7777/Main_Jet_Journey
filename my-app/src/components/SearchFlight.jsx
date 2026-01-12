@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   Plane,
   MapPin,
@@ -10,7 +11,10 @@ import {
   XCircle,
   Hourglass,
   RefreshCcw,
+  Search,
+  Filter
 } from 'lucide-react';
+import Footer from './Footer';
 
 const API_KEY = 'cd8b99100115ff3ca5cd4df948dd1432';
 
@@ -20,12 +24,14 @@ const SearchFlight = ({ setTab }) => {
   const [searchType, setSearchType] = useState('flight');
   const [inputValue, setInputValue] = useState('');
   const [statusFilter, setStatusFilter] = useState('All');
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setTab('search');
 
     const fetchFlights = async () => {
       try {
+        setLoading(true);
         const response = await fetch(`http://api.aviationstack.com/v1/flights?access_key=${API_KEY}`);
         const data = await response.json();
         if (data && data.data) {
@@ -34,6 +40,8 @@ const SearchFlight = ({ setTab }) => {
         }
       } catch (error) {
         console.error('Error fetching flights:', error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -61,32 +69,72 @@ const SearchFlight = ({ setTab }) => {
     setFilteredFlights(filtered);
   }, [inputValue, searchType, statusFilter, flights]);
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    show: { opacity: 1, y: 0 }
+  };
+
   return (
-    <div className="bg-[#f9fbfd] min-h-screen">
+    <div className="bg-[#f0f4f8] min-h-screen pb-20">
+      {/* Header Section */}
+      <div className="bg-gradient-to-r from-blue-900 to-slate-900 w-full py-20 pb-32 rounded-b-[3rem] shadow-xl relative overflow-hidden">
+        <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-10"></div>
+        <div className="absolute -bottom-24 -right-24 w-64 h-64 bg-blue-500 rounded-full blur-3xl opacity-20 animate-pulse"></div>
+        <div className="absolute -top-24 -left-24 w-64 h-64 bg-cyan-400 rounded-full blur-3xl opacity-20 animate-pulse delay-1000"></div>
 
-      
-      <div className="bg-[#0047AB] w-full pb-0.5">
-        <div className="max-w-full mx-auto px-4 sm:px-8 md:px-16 lg:px-40">
-          <div className="text-center mb-10">
-            <h2 className="text-3xl sm:text-5xl md:text-6xl font-bold text-white mb-4 pt-8">Flight Search</h2>
-          </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-8 text-center relative z-10">
+          <motion.h2
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-4xl sm:text-6xl font-bold text-white mb-6 tracking-tight"
+          >
+            Find Your Flight
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+            className="text-blue-100 text-lg sm:text-xl mb-8 max-w-2xl mx-auto"
+          >
+            Track real-time flight status worldwide with precision and ease.
+          </motion.p>
+        </div>
+      </div>
 
-          <div className="bg-white p-4 rounded-xl shadow mb-8">
-            <div className="flex flex-col xs:flex-row gap-2 mb-3 sm:flex-row">
+      {/* Search & Filter Container */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-16 relative z-20">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-white/80 backdrop-blur-md rounded-2xl shadow-lg border border-white/50 p-6 sm:p-8"
+        >
+          {/* Search Tabs */}
+          <div className="flex justify-center mb-8">
+            <div className="inline-flex bg-gray-100/50 p-1 rounded-xl">
               <button
-                className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-full border transition text-sm sm:text-base ${searchType === 'flight'
-                    ? 'border-blue-500 text-blue-600 bg-blue-50 font-medium'
-                    : 'border-gray-300 text-gray-500 bg-gray-100'
+                className={`flex items-center gap-2 px-6 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${searchType === 'flight'
+                  ? 'bg-white text-blue-600 shadow-sm ring-1 ring-black/5'
+                  : 'text-gray-500 hover:text-gray-700'
                   }`}
                 onClick={() => setSearchType('flight')}
               >
                 <Plane className="w-4 h-4" />
-                Flight
+                Flight Number
               </button>
               <button
-                className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-full border transition text-sm sm:text-base ${searchType === 'destination'
-                    ? 'border-blue-500 text-blue-600 bg-blue-50 font-medium'
-                    : 'border-gray-300 text-gray-500 bg-gray-100'
+                className={`flex items-center gap-2 px-6 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${searchType === 'destination'
+                  ? 'bg-white text-blue-600 shadow-sm ring-1 ring-black/5'
+                  : 'text-gray-500 hover:text-gray-700'
                   }`}
                 onClick={() => setSearchType('destination')}
               >
@@ -94,164 +142,164 @@ const SearchFlight = ({ setTab }) => {
                 Destination
               </button>
             </div>
-
-            <div className="flex flex-col sm:flex-row items-center border border-gray-300 rounded-full overflow-hidden">
-              <div className="pl-4 pr-2 text-gray-400">
-                <PlaneTakeoff className="w-4 h-4" />
-              </div>
-              <input
-                type="text"
-                className="flex-1 py-2 pr-3 text-sm focus:outline-none min-w-0"
-                placeholder={`Enter ${searchType === 'flight' ? 'flight number (e.g., AA123)' : 'arrival airport (e.g., JFK)'
-                  }`}
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-              />
-            </div>
           </div>
-        </div>
+
+          {/* Search Input */}
+          <div className="relative max-w-2xl mx-auto mb-8">
+            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+              <Search className="h-5 w-5 text-gray-400" />
+            </div>
+            <input
+              type="text"
+              className="block w-full pl-11 pr-4 py-4 bg-white border border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all shadow-sm"
+              placeholder={`Enter ${searchType === 'flight' ? 'flight number (e.g., AA123)' : 'destination airport (e.g., JFK)'}`}
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+            />
+          </div>
+
+          {/* Quick Filters */}
+          <div className="flex flex-wrap justify-center gap-2 sm:gap-4">
+            {['All', 'Active', 'Scheduled', 'Landed', 'Delayed', 'Cancelled'].map((status) => (
+              <button
+                key={status}
+                onClick={() => setStatusFilter(status)}
+                className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors border ${statusFilter === status || (status === 'All' && statusFilter === 'All')
+                  ? 'bg-blue-600 text-white border-blue-600'
+                  : 'bg-white text-gray-600 border-gray-200 hover:bg-gray-50 hover:border-gray-300'
+                  }`}
+              >
+                {status}
+              </button>
+            ))}
+          </div>
+        </motion.div>
       </div>
 
-      
-      <div className="max-w-full mx-auto px-4 sm:px-8 md:px-16 lg:px-40 mt-5">
-        <div className="flex flex-col lg:flex-row gap-6">
-          {/* Filters down here */}
-          <div className="w-full lg:max-w-xs bg-white rounded-2xl shadow-lg p-4 flex flex-col mb-4 h-90 overflow-auto">
-            <h2 className="text-xl font-bold text-gray-800 mb-4">Filters</h2>
-            <div className="mb-4">
-              <p className="text-sm font-semibold text-gray-700 mb-2">Flight Status</p>
-              <div className="flex flex-col gap-2">
-                {[
-                  { value: 'All', label: 'All' },
-                  { value: 'scheduled', label: 'Scheduled' },
-                  { value: 'active', label: 'Active' },
-                  { value: 'landed', label: 'Landed' },
-                  { value: 'cancelled', label: 'Cancelled' },
-                  { value: 'delayed', label: 'Delayed' },
-                  { value: 'diverted', label: 'Diverted' },
-                ].map((status) => (
-                  <label key={status.value} className="flex items-center gap-2 cursor-pointer">
-                    <input
-                      type="radio"
-                      name="status"
-                      value={status.value}
-                      checked={statusFilter === status.value}
-                      onChange={() => setStatusFilter(status.value)}
-                      className="accent-blue-500 w-3 h-3"
-                    />
-                    <span className="text-gray-700 text-sm font-normal">{status.label}</span>
-                  </label>
-                ))}
-              </div>
-            </div>
-            <button
-              type="button"
-              className="mt-4 w-full flex items-center justify-center gap-2 border border-gray-200 rounded-full py-1.5 bg-gray-50 text-gray-600 text-sm font-medium transition hover:bg-blue-50 hover:text-blue-600 hover:border-blue-300 active:scale-95"
-              onClick={() => {
-                setStatusFilter('All');
-                setInputValue('');
-                setSearchType('flight');
-              }}
-            >
-              <RotateCcw className="w-3 h-3" />
-              Reset Filters
-            </button>
+      {/* Results Section */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12">
+        <div className="flex items-center justify-between mb-6">
+          <h3 className="text-xl font-bold text-gray-800 flex items-center gap-2">
+            <PlaneTakeoff className="w-5 h-5 text-blue-600" />
+            Flight Results
+            <span className="ml-2 px-2.5 py-0.5 rounded-full bg-blue-100 text-blue-700 text-xs font-semibold">
+              {filteredFlights.length}
+            </span>
+          </h3>
+        </div>
+
+        {loading ? (
+          <div className="flex justify-center items-center py-20">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
           </div>
+        ) : (
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate="show"
+            className="grid grid-cols-1 gap-6"
+          >
+            <AnimatePresence>
+              {filteredFlights.map((flight, idx) => {
+                const depTime = flight.departure?.scheduled ? new Date(flight.departure.scheduled) : null;
+                const arrTime = flight.arrival?.scheduled ? new Date(flight.arrival.scheduled) : null;
 
-          
-          <div className="flex-1 space-y-4">
-            <p className="text-gray-500 text-sm">{filteredFlights.length} flights found</p>
-            {filteredFlights.map((flight, idx) => {
-              const depTime = flight.departure?.scheduled ? new Date(flight.departure.scheduled) : null;
-              const arrTime = flight.arrival?.scheduled ? new Date(flight.arrival.scheduled) : null;
-
-              let durationStr = '';
-              if (depTime && arrTime) {
-                const diffMs = arrTime - depTime;
-                if (diffMs > 0) {
-                  const hours = Math.floor(diffMs / (1000 * 60 * 60));
-                  const mins = Math.floor((diffMs / (1000 * 60)) % 60);
-                  durationStr = `${hours}h ${mins}m`;
+                let durationStr = '';
+                if (depTime && arrTime) {
+                  const diffMs = arrTime - depTime;
+                  if (diffMs > 0) {
+                    const hours = Math.floor(diffMs / (1000 * 60 * 60));
+                    const mins = Math.floor((diffMs / (1000 * 60)) % 60);
+                    durationStr = `${hours}h ${mins}m`;
+                  }
                 }
-              }
 
-              const status = flight.flight_status;
-              const statusMap = {
-                scheduled: { icon: <Clock className="w-5 h-5" />, bg: 'bg-blue-50', color: 'text-blue-500' },
-                active: { icon: <Activity className="w-5 h-5" />, bg: 'bg-green-50', color: 'text-green-600' },
-                landed: { icon: <CheckCircle className="w-5 h-5" />, bg: 'bg-emerald-50', color: 'text-emerald-500' },
-                cancelled: { icon: <XCircle className="w-5 h-5" />, bg: 'bg-red-50', color: 'text-red-500' },
-                delayed: { icon: <Hourglass className="w-5 h-5" />, bg: 'bg-yellow-50', color: 'text-orange-400' },
-                diverted: { icon: <RefreshCcw className="w-5 h-5" />, bg: 'bg-orange-50', color: 'text-orange-500' },
-              };
-              const badge = statusMap[status] || { icon: null, bg: 'bg-gray-100', color: 'text-gray-400' };
+                const status = flight.flight_status;
+                const statusMap = {
+                  scheduled: { icon: <Clock className="w-4 h-4" />, bg: 'bg-blue-100', color: 'text-blue-700' },
+                  active: { icon: <Activity className="w-4 h-4" />, bg: 'bg-green-100', color: 'text-green-700' },
+                  landed: { icon: <CheckCircle className="w-4 h-4" />, bg: 'bg-emerald-100', color: 'text-emerald-700' },
+                  cancelled: { icon: <XCircle className="w-4 h-4" />, bg: 'bg-red-100', color: 'text-red-700' },
+                  delayed: { icon: <Hourglass className="w-4 h-4" />, bg: 'bg-amber-100', color: 'text-amber-700' },
+                  diverted: { icon: <RefreshCcw className="w-4 h-4" />, bg: 'bg-orange-100', color: 'text-orange-700' },
+                };
+                const badge = statusMap[status] || { icon: null, bg: 'bg-gray-100', color: 'text-gray-600' };
 
-              return (
-                <div
-                  key={`${flight.flight?.iata}-${idx}`}
-                  className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col sm:flex-row items-start sm:items-stretch px-5 py-4 gap-6 cursor-pointer group border border-gray-100 hover:border-blue-200"
-                >
-                  <div className="flex-1 flex flex-col justify-between">
-                    <div>
-                      <div className="text-lg font-semibold text-gray-900 mb-1 flex items-center gap-2 group-hover:text-blue-600 transition-colors duration-200">
-                        {flight.airline?.name} {flight.flight?.iata}
-                      </div>
-                      <div className="text-gray-400 text-sm font-medium">{flight.departure?.scheduled?.slice(0, 10)}</div>
-                    </div>
+                return (
+                  <motion.div
+                    key={`${flight.flight?.iata}-${idx}`}
+                    variants={itemVariants}
+                    layout
+                    whileHover={{ scale: 1.01, y: -2 }}
+                    className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300"
+                  >
+                    <div className="p-6">
+                      <div className="flex flex-col md:flex-row gap-8 items-center">
+                        {/* Airline & Info */}
+                        <div className="w-full md:w-1/4">
+                          <div className="flex items-center gap-3 mb-2">
+                            <div className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-gray-400">
+                              <Plane className="w-5 h-5" />
+                            </div>
+                            <div>
+                              <h4 className="font-bold text-gray-900">{flight.airline?.name}</h4>
+                              <p className="text-sm text-gray-500 font-mono">{flight.flight?.iata}</p>
+                            </div>
+                          </div>
+                          <div className="text-xs text-gray-400 mt-2 flex items-center gap-1">
+                            <Clock className="w-3 h-3" />
+                            {flight.departure?.scheduled?.slice(0, 10)}
+                          </div>
+                        </div>
 
-                    <div className="flex flex-row items-end justify-between w-full mt-4">
-                      <div className="flex flex-col items-start min-w-[70px]">
-                        <span className="text-gray-500 text-base font-medium mb-1">
-                          {depTime ? depTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '--:--'}
-                        </span>
-                        <span className="text-xl font-bold text-gray-800 leading-none">
-                          {flight.departure?.iata}
-                        </span>
-                        <span className="text-gray-400 text-xs mt-1">
-                          {flight.departure?.terminal ? `Terminal ${flight.departure.terminal}` : ''}
-                          {flight.departure?.gate ? `, Gate ${flight.departure.gate}` : ''}
-                        </span>
-                      </div>
+                        {/* Route Visualization */}
+                        <div className="flex-1 w-full flex items-center justify-between gap-4">
+                          <div className="text-center min-w-[80px]">
+                            <div className="text-2xl font-bold text-gray-900">{flight.departure?.iata}</div>
+                            <div className="text-xs text-gray-500 mt-1">{depTime ? depTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '--:--'}</div>
+                            <div className="text-[10px] text-gray-400 mt-0.5">
+                              {flight.departure?.terminal ? `T${flight.departure.terminal}` : ''}
+                              {flight.departure?.gate ? ` G${flight.departure.gate}` : ''}
+                            </div>
+                          </div>
 
-                      <div className="flex-1 flex flex-col items-center">
-                        <div className="w-full border-t border-dashed border-gray-300 relative mt-3 mb-1">
-                          {durationStr && (
-                            <span className="absolute left-1/2 -translate-x-1/2 -top-3 bg-white px-2 text-gray-400 text-xs font-medium">
-                              {durationStr}
-                            </span>
-                          )}
+                          <div className="flex-1 flex flex-col items-center relative px-4">
+                            <div className="text-xs font-medium text-gray-400 mb-1">{durationStr}</div>
+                            <div className="w-full h-0.5 bg-gray-200 relative">
+                              <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-gray-200"></div>
+                              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-1">
+                                <Plane className="w-4 h-4 text-gray-300 rotate-90" />
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="text-center min-w-[80px]">
+                            <div className="text-2xl font-bold text-gray-900">{flight.arrival?.iata}</div>
+                            <div className="text-xs text-gray-500 mt-1">{arrTime ? arrTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '--:--'}</div>
+                            <div className="text-[10px] text-gray-400 mt-0.5">
+                              {flight.arrival?.terminal ? `T${flight.arrival.terminal}` : ''}
+                              {flight.arrival?.gate ? ` G${flight.arrival.gate}` : ''}
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Status Badge */}
+                        <div className="w-full md:w-auto flex justify-end">
+                          <div className={`px-4 py-2 rounded-full flex items-center gap-2 ${badge.bg} ${badge.color}`}>
+                            {badge.icon}
+                            <span className="text-sm font-semibold capitalize">{status?.replace('_', ' ')}</span>
+                          </div>
                         </div>
                       </div>
-
-                      <div className="flex flex-col items-end min-w-[70px]">
-                        <span className="text-gray-500 text-base font-medium mb-1">
-                          {arrTime ? arrTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '--:--'}
-                        </span>
-                        <span className="text-xl font-bold text-gray-800 leading-none">
-                          {flight.arrival?.iata}
-                        </span>
-                        <span className="text-gray-400 text-xs mt-1 text-right">
-                          {flight.arrival?.terminal ? `Terminal ${flight.arrival.terminal}` : ''}
-                          {flight.arrival?.gate ? `, Gate ${flight.arrival.gate}` : ''}
-                        </span>
-                      </div>
                     </div>
-                  </div>
-
-                  <div className="flex items-center sm:items-start justify-end min-w-[120px]">
-                    <span
-                      className={`inline-flex items-center px-4 py-1.5 rounded-full font-medium text-sm gap-2 ${badge.bg} ${badge.color} group-hover:scale-105 transition-transform duration-200`}
-                    >
-                      {badge.icon}
-                      {status?.charAt(0).toUpperCase() + status?.slice(1).replace('_', ' ')}
-                    </span>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
+                  </motion.div>
+                );
+              })}
+            </AnimatePresence>
+          </motion.div>
+        )}
       </div>
+      <Footer />
     </div>
   );
 };

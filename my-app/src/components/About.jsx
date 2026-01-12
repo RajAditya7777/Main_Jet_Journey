@@ -1,8 +1,8 @@
 import React from 'react';
 
-import {Shield,Star,Users,TrendingUp} from "lucide-react";
+import { Shield, Star, Users, TrendingUp } from "lucide-react";
 
-import Footer from './footer';
+import Footer from './Footer';
 
 const impact = [
   { number: "10M+", label: "Flights Tracked" },
@@ -13,17 +13,17 @@ const impact = [
 
 const visionCards = [
   {
-    icon: <TrendingUp className='h-9 w-9'/>,
+    icon: <TrendingUp className='h-9 w-9' />,
     title: "Expand Coverage",
     description: "We're working to include even more airlines and airports in our tracking system.",
   },
   {
-    icon: <Star className='h-9 w-9'/>,
+    icon: <Star className='h-9 w-9' />,
     title: "Enhanced Features",
     description: "We're developing new tools to provide even more detailed flight information.",
   },
   {
-    icon: <Shield className='h-9 w-9'/>,
+    icon: <Shield className='h-9 w-9' />,
     title: "Personalized Experiences",
     description: "Our goal is to tailor our service to your specific travel needs and preferences.",
   },
@@ -56,13 +56,13 @@ export default function About() {
   return (
     <section>
       {/* Intro Section */}
-      <div className='bg-[#0047AB] text-white py-16 px-4 sm:px-8 md:px-16 text-center'>
-        <h1 className="text-white text-3xl sm:text-5xl font-bold mb-4">About JetJourney</h1>
-        <p className="text-white text-base sm:text-lg max-w-2xl font-light mx-auto">
+      <div className='bg-gradient-to-r from-blue-900 to-slate-900 text-white py-20 px-4 sm:px-8 md:px-16 text-center relative overflow-hidden rounded-b-[3rem] shadow-xl'>
+        <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-10"></div>
+        <h1 className="text-white text-4xl sm:text-6xl font-bold mb-6 relative z-10">About JetJourney</h1>
+        <p className="text-blue-100 text-lg sm:text-xl max-w-2xl font-light mx-auto relative z-10">
           Your trusted partner for real-time flight tracking and status updates.
         </p>
-        <br />
-        <p className="text-white mt-2 max-w-2xl font-light mx-auto">
+        <p className="text-blue-200 mt-4 max-w-2xl font-light mx-auto relative z-10">
           Launched in 2025, JetJourney has quickly become the go-to platform for travelers seeking accurate, timely information on flights worldwide.
         </p>
       </div>
@@ -81,15 +81,15 @@ export default function About() {
           </p>
           <ul className="space-y-4 text-gray-700">
             <li className="flex items-start gap-3">
-              <span className="text-blue-600"><Shield/></span>
+              <span className="text-blue-600"><Shield /></span>
               <div><strong>Reliability</strong><br />We provide accurate, up-to-date information you can trust.</div>
             </li>
             <li className="flex items-start gap-3">
-              <span className="text-blue-600"><Star/></span>
+              <span className="text-blue-600"><Star /></span>
               <div><strong>Excellence</strong><br />We strive for excellence in every aspect of our service.</div>
             </li>
             <li className="flex items-start gap-3">
-              <span className="text-blue-600"><Users/></span>
+              <span className="text-blue-600"><Users /></span>
               <div><strong>Customer Focus</strong><br />Your needs and preferences drive our development.</div>
             </li>
           </ul>
